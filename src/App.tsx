@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react'
+import { useState, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ShoppingCart, Plus, Minus, X, MessageCircle, Info } from 'lucide-react'
+import { ShoppingCart, Plus, Minus, X, MessageCircle } from 'lucide-react'
 import menuDataJson from './data.json'
 import type { MenuData, MenuCategory, MenuItem, CartItem } from './types'
 import clsx from 'clsx'
@@ -128,7 +128,7 @@ function App() {
     }).filter(c => c.cantidad > 0));
   };
 
-  const clearCart = () => setCart([]);
+
 
   const sendWhatsAppOrder = () => {
     const phone = data.informacion_restaurante.whatsapp[0];
