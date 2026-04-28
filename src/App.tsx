@@ -226,112 +226,112 @@ function App() {
             </div>
           ))}
         </main>
+      </div>
 
-        {/* Floating Cart Bar */}
-        <AnimatePresence>
-          {cartItemsCount > 0 && !isCartOpen && (
-            <motion.div
-              initial={{ y: 100, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: 100, opacity: 0 }}
-              className="fixed bottom-6 left-0 w-full flex justify-center px-4 z-40 pointer-events-none"
-            >
-              <div className="w-full max-w-[460px] pointer-events-auto">
-                <button
-                  onClick={() => setIsCartOpen(true)}
-                  className="w-full comic-button !bg-secondary !text-black !py-4 rounded-2xl flex justify-between items-center group overflow-hidden relative"
-                >
-                  <div className="absolute inset-0 -translate-x-full animate-[shimmer_2s_infinite] bg-gradient-to-r from-transparent via-white/40 to-transparent"></div>
-                  <div className="flex items-center gap-2 relative z-10">
-                    <div className="bg-black text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">
-                      {cartItemsCount}
-                    </div>
-                    <span className="font-body text-lg">Ver Pedido</span>
+      {/* Floating Cart Bar */}
+      <AnimatePresence>
+        {cartItemsCount > 0 && !isCartOpen && (
+          <motion.div
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 100, opacity: 0 }}
+            className="fixed bottom-6 left-0 w-full flex justify-center px-4 z-50 pointer-events-none"
+          >
+            <div className="w-full max-w-[460px] pointer-events-auto">
+              <button
+                onClick={() => setIsCartOpen(true)}
+                className="w-full comic-button !bg-secondary !text-black !py-4 rounded-2xl flex justify-between items-center group overflow-hidden relative"
+              >
+                <div className="absolute inset-0 -translate-x-full animate-[shimmer_2s_infinite] bg-gradient-to-r from-transparent via-white/40 to-transparent"></div>
+                <div className="flex items-center gap-2 relative z-10">
+                  <div className="bg-black text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">
+                    {cartItemsCount}
                   </div>
-                  <span className="font-title text-xl">S/ {cartTotal.toFixed(2)}</span>
+                  <span className="font-body text-lg">Ver Pedido</span>
+                </div>
+                <span className="font-title text-xl">S/ {cartTotal.toFixed(2)}</span>
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Cart Modal */}
+      <AnimatePresence>
+        {isCartOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsCartOpen(false)}
+              className="fixed inset-0 bg-black/60 z-50 backdrop-blur-sm"
+            />
+            <motion.div
+              initial={{ y: '100%' }}
+              animate={{ y: 0 }}
+              exit={{ y: '100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[500px] bg-white rounded-t-3xl z-50 flex flex-col max-h-[85vh] shadow-[0_-10px_40px_rgba(0,0,0,0.2)] border-t-4 border-x-4 border-black"
+            >
+              <div className="p-4 border-b-2 border-gray-100 flex justify-between items-center bg-gray-50 rounded-t-3xl">
+                <h2 className="font-title text-2xl text-primary">Mi Pedido</h2>
+                <button onClick={() => setIsCartOpen(false)} className="p-2 bg-gray-200 rounded-full hover:bg-gray-300 transition-colors">
+                  <X size={20} />
                 </button>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Cart Modal */}
-        <AnimatePresence>
-          {isCartOpen && (
-            <>
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                onClick={() => setIsCartOpen(false)}
-                className="fixed inset-0 bg-black/60 z-50 backdrop-blur-sm"
-              />
-              <motion.div
-                initial={{ y: '100%' }}
-                animate={{ y: 0 }}
-                exit={{ y: '100%' }}
-                transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[500px] bg-white rounded-t-3xl z-50 flex flex-col max-h-[85vh] shadow-[0_-10px_40px_rgba(0,0,0,0.2)] border-t-4 border-x-4 border-black"
-              >
-                <div className="p-4 border-b-2 border-gray-100 flex justify-between items-center bg-gray-50 rounded-t-3xl">
-                  <h2 className="font-title text-2xl text-primary">Mi Pedido</h2>
-                  <button onClick={() => setIsCartOpen(false)} className="p-2 bg-gray-200 rounded-full hover:bg-gray-300 transition-colors">
-                    <X size={20} />
-                  </button>
-                </div>
-                
-                <div className="flex-1 overflow-y-auto p-4 hide-scrollbar">
-                  {cart.length === 0 ? (
-                    <div className="text-center text-gray-500 py-10 font-ui flex flex-col items-center">
-                      <ShoppingCart size={48} className="mb-4 text-gray-300" />
-                      <p>Tu carrito está vacío</p>
-                    </div>
-                  ) : (
-                    <div className="flex flex-col gap-4">
-                      {cart.map((item) => (
-                        <div key={item.id} className="flex justify-between items-center bg-gray-50 p-3 rounded-2xl border-2 border-gray-200">
-                          <div className="flex-1 pr-2">
-                            <h4 className="font-body text-md text-primary leading-tight">{item.nombre}</h4>
-                            {item.proteina && (
-                              <p className="text-sm text-gray-500 font-ui mt-1">{item.proteina}</p>
-                            )}
-                            <p className="font-bold text-black mt-1 font-ui">S/ {(item.precio * item.cantidad).toFixed(2)}</p>
-                          </div>
-                          <div className="flex items-center gap-3 bg-white border-2 border-black rounded-full px-2 py-1 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
-                            <button onClick={() => updateQuantity(item.id, -1)} className="p-1 hover:bg-gray-100 rounded-full text-black">
-                              <Minus size={16} strokeWidth={3} />
-                            </button>
-                            <span className="font-body w-4 text-center">{item.cantidad}</span>
-                            <button onClick={() => updateQuantity(item.id, 1)} className="p-1 hover:bg-gray-100 rounded-full text-black">
-                              <Plus size={16} strokeWidth={3} />
-                            </button>
-                          </div>
+              
+              <div className="flex-1 overflow-y-auto p-4 hide-scrollbar">
+                {cart.length === 0 ? (
+                  <div className="text-center text-gray-500 py-10 font-ui flex flex-col items-center">
+                    <ShoppingCart size={48} className="mb-4 text-gray-300" />
+                    <p>Tu carrito está vacío</p>
+                  </div>
+                ) : (
+                  <div className="flex flex-col gap-4">
+                    {cart.map((item) => (
+                      <div key={item.id} className="flex justify-between items-center bg-gray-50 p-3 rounded-2xl border-2 border-gray-200">
+                        <div className="flex-1 pr-2">
+                          <h4 className="font-body text-md text-primary leading-tight">{item.nombre}</h4>
+                          {item.proteina && (
+                            <p className="text-sm text-gray-500 font-ui mt-1">{item.proteina}</p>
+                          )}
+                          <p className="font-bold text-black mt-1 font-ui">S/ {(item.precio * item.cantidad).toFixed(2)}</p>
                         </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-
-                {cart.length > 0 && (
-                  <div className="p-4 bg-white border-t-2 border-gray-100 rounded-b-3xl">
-                    <div className="flex justify-between items-center mb-4 font-title text-xl text-primary">
-                      <span>Total:</span>
-                      <span className="text-2xl text-black">S/ {cartTotal.toFixed(2)}</span>
-                    </div>
-                    <button
-                      onClick={sendWhatsAppOrder}
-                      className="w-full comic-button !bg-[#25D366] !text-black !py-4 rounded-2xl flex justify-center items-center gap-2 group"
-                    >
-                      <MessageCircle className="group-hover:scale-110 transition-transform" />
-                      Enviar pedido a WhatsApp
-                    </button>
+                        <div className="flex items-center gap-3 bg-white border-2 border-black rounded-full px-2 py-1 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                          <button onClick={() => updateQuantity(item.id, -1)} className="p-1 hover:bg-gray-100 rounded-full text-black">
+                            <Minus size={16} strokeWidth={3} />
+                          </button>
+                          <span className="font-body w-4 text-center">{item.cantidad}</span>
+                          <button onClick={() => updateQuantity(item.id, 1)} className="p-1 hover:bg-gray-100 rounded-full text-black">
+                            <Plus size={16} strokeWidth={3} />
+                          </button>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 )}
-              </motion.div>
-            </>
-          )}
-        </AnimatePresence>
-      </div>
+              </div>
+
+              {cart.length > 0 && (
+                <div className="p-4 bg-white border-t-2 border-gray-100 rounded-b-3xl">
+                  <div className="flex justify-between items-center mb-4 font-title text-xl text-primary">
+                    <span>Total:</span>
+                    <span className="text-2xl text-black">S/ {cartTotal.toFixed(2)}</span>
+                  </div>
+                  <button
+                    onClick={sendWhatsAppOrder}
+                    className="w-full comic-button !bg-[#25D366] !text-black !py-4 rounded-2xl flex justify-center items-center gap-2 group"
+                  >
+                    <MessageCircle className="group-hover:scale-110 transition-transform" />
+                    Enviar pedido a WhatsApp
+                  </button>
+                </div>
+              )}
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
