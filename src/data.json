@@ -1,0 +1,94 @@
+{
+  "informacion_restaurante": {
+    "nombre": "El Chato Cevicheria",
+    "telefonos": ["901389408", "921975554"],
+    "whatsapp": ["918002466"],
+    "redes_sociales": {
+      "tiktok": "foodtruck El Chato",
+      "facebook": "foodtruck El Chato"
+    }
+  },
+  "menu": [
+    {
+      "categoria": "Duos Marinos",
+      "opciones_proteina": ["Pota", "Pescado mixto"],
+      "precios_por_proteina": {
+        "Pota": 15.00,
+        "Pescado mixto": 20.00
+      },
+      "items": [
+        { "nombre": "Ceviche - Chicharron" },
+        { "nombre": "Ceviche - Arroz con marisco" },
+        { "nombre": "Ceviche - Chaufa de marisco" },
+        { "nombre": "Ceviche - Causa" },
+        { "nombre": "Causa - Chicharron" },
+        { "nombre": "Causa - Arroz con marisco" },
+        { "nombre": "Causa - Chaufa de marisco" }
+      ]
+    },
+    {
+      "categoria": "Trios Marino",
+      "opciones_proteina": ["Pota", "Pescado mixto"],
+      "precios_por_proteina": {
+        "Pota": 20.00,
+        "Pescado mixto": 25.00
+      },
+      "items": [
+        { "nombre": "Ceviche - Chicharrones - Arroz con marisco" },
+        { "nombre": "Ceviche - Causa - Chaufa de marisco" },
+        { "nombre": "Leche de tigre - Chicharrones - Arroz con marisco" },
+        { "nombre": "Causa - Chicharrones - Arroz con marisco" }
+      ]
+    },
+    {
+      "categoria": "Ronda Marina",
+      "opciones_proteina": ["Pota", "Pescado mixto"],
+      "precios_por_proteina": {
+        "Pota": 25.00,
+        "Pescado mixto": 30.00
+      },
+      "items": [
+        { "nombre": "Ceviche, Causa, Chicharrones, Arroz con marisco, Chaufa de marisco" }
+      ]
+    },
+    {
+      "categoria": "Leche de Tigre",
+      "items": [
+        { "nombre": "Pota", "precio": 10.00 },
+        { "nombre": "Pescado", "precio": 12.00 },
+        { "nombre": "Mixto", "precio": 15.00 },
+        { "nombre": "Langostino", "precio": 15.00 }
+      ]
+    },
+    {
+      "categoria": "Ceviches",
+      "items": [
+        { "nombre": "Pota", "precio": 10.00 },
+        { "nombre": "Pota con pescado", "precio": 12.00 },
+        { "nombre": "Pescado", "precio": 15.00 },
+        { "nombre": "Mixto", "precio": 18.00 },
+        { "nombre": "Langostino", "precio": 20.00 },
+        { "nombre": "Pulpo", "precio": 20.00 }
+      ]
+    },
+    {
+      "categoria": "Chicharrones",
+      "items": [
+        { "nombre": "Pota", "precio": 10.00 },
+        { "nombre": "Pota con pescado", "precio": 12.00 },
+        { "nombre": "Pescado", "precio": 15.00 },
+        { "nombre": "Mixto", "precio": 18.00 },
+        { "nombre": "Calamar", "precio": 20.00 }
+      ]
+    },
+    {
+      "categoria": "Causas Acevichadas",
+      "items": [
+        { "nombre": "Pota con pescado", "precio": 12.00 },
+        { "nombre": "Pescado", "precio": 15.00 },
+        { "nombre": "Langostino", "precio": 16.00 },
+        { "nombre": "Pulpo", "precio": 16.00 }
+      ]
+    }
+  ]
+}
