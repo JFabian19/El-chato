@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ShoppingCart, Plus, Minus, X } from 'lucide-react'
+import { ShoppingCart, Plus, Minus, X, Anchor } from 'lucide-react'
 import { FaWhatsapp, FaTiktok } from 'react-icons/fa'
 import menuDataJson from './data.json'
 import type { MenuData, MenuItem, CartItem } from './types'
@@ -63,34 +63,72 @@ const ProductCard = ({
         )}
       </div>
 
-      <h3 className="font-body text-base sm:text-xl text-primary leading-tight mb-2 flex-grow pr-0 sm:pr-0">
-        {item.nombre}
-      </h3>
+      <div className="flex flex-col flex-grow">
+        <h3 className="font-body text-base sm:text-xl text-primary leading-tight mb-2 pr-0 sm:pr-0">
+          {item.nombre.split('(')[0].trim()}
+        </h3>
+        
+        {item.nombre.includes('(') && (
+          <div className="text-[11px] sm:text-xs text-gray-600 font-ui mb-3 flex flex-col gap-1">
+            {item.nombre.split('(')[1].replace(')', '').split(/\s*[-–]\s*/).map((part, index) => {
+              const trimmedPart = part.trim();
+              const capitalizedPart = trimmedPart.charAt(0).toUpperCase() + trimmedPart.slice(1);
+              return (
+                <div key={index} className="flex items-start gap-1.5">
+                  <span className="text-secondary text-[10px] mt-[3px]">●</span>
+                  <span className="flex-1 leading-snug">{capitalizedPart}</span>
+                </div>
+              );
+            })}
+          </div>
+        )}
       
       {item.opcion && (
-        <p className="text-xs sm:text-sm text-gray-600 font-ui mb-2 leading-snug">
-          {item.opcion}
-        </p>
+        <div className="text-[11px] sm:text-xs text-gray-600 font-ui mb-3 mt-1 flex flex-col gap-1">
+          {item.opcion.split(/\s*[-–]\s*/).map((part, index) => {
+            const trimmedPart = part.trim();
+            const capitalizedPart = trimmedPart.charAt(0).toUpperCase() + trimmedPart.slice(1);
+            return (
+              <div key={index} className="flex items-start gap-1.5">
+                <span className="text-secondary text-[10px] mt-[3px]">●</span>
+                <span className="flex-1 leading-snug">{capitalizedPart}</span>
+              </div>
+            );
+          })}
+        </div>
       )}
 
       {hasOptions && (
-        <div className="flex flex-wrap gap-1 mb-2 mt-2">
+        <div className="flex flex-col gap-1.5 mb-2 mt-2 w-full">
           {item.opciones!.map(p => (
             <button
               key={p}
               onClick={() => setSelectedOption(p)}
               className={clsx(
-                "px-2 py-1 sm:px-4 sm:py-1 rounded-full text-[10px] sm:text-xs font-ui font-bold border-2 transition-colors",
+                "px-3 py-2 rounded-2xl text-[10px] sm:text-xs font-ui font-bold border-2 transition-colors text-left",
                 selectedOption === p
                   ? "bg-secondary text-black border-black"
                   : "bg-gray-100 text-gray-500 border-gray-300 hover:border-black"
               )}
             >
-              {p}
+              <div className="flex flex-col gap-0.5">
+                {p.split(/\s*[-–]\s*/).map((part, idx) => {
+                  const trimmedPart = part.trim();
+                  const capitalizedPart = trimmedPart.charAt(0).toUpperCase() + trimmedPart.slice(1);
+                  return (
+                    <div key={idx} className="flex items-start gap-1.5">
+                      <span className={clsx("text-[9px] mt-[3px]", selectedOption === p ? "text-primary" : "text-gray-400")}>●</span>
+                      <span className="flex-1 leading-tight">{capitalizedPart}</span>
+                    </div>
+                  );
+                })}
+              </div>
             </button>
           ))}
         </div>
       )}
+
+      </div>
 
       <div className="flex justify-end mt-2 shrink-0">
         <button
@@ -252,9 +290,18 @@ function App() {
         <main className="flex-1 p-4 pb-32">
           {data.menu.map(cat => (
             <div key={cat.categoria} id={cat.categoria} className="mb-8 pt-4">
-              <h2 className="font-title text-3xl text-primary mb-6 tracking-wide drop-shadow-sm">
-                {cat.categoria}
-              </h2>
+              <div className="flex items-center gap-2 mb-6">
+                <motion.div
+                  animate={{ rotate: [0, -10, 10, 0], y: [0, -2, 0] }}
+                  transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+                  className="shrink-0"
+                >
+                  <Anchor className="text-secondary w-8 h-8 sm:w-10 sm:h-10" strokeWidth={2.5} />
+                </motion.div>
+                <h2 className="font-title text-3xl sm:text-4xl text-primary tracking-wide drop-shadow-sm mb-0 leading-none">
+                  {cat.categoria}
+                </h2>
+              </div>
               <div className="grid grid-cols-2 gap-3 sm:gap-4">
                 {cat.items.map((item, idx) => (
                   <ProductCard 
