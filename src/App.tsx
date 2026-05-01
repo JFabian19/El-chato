@@ -7,6 +7,8 @@ import type { MenuData, MenuItem, CartItem } from './types'
 import clsx from 'clsx'
 
 const data = menuDataJson as MenuData
+const DELIVERY_FEE = 4
+
 
 const InfinityMarquee = () => {
   return (
@@ -178,6 +180,10 @@ function App() {
     return cart.reduce((total, item) => total + item.precio * item.cantidad, 0)
   }, [cart])
 
+  const finalTotal = useMemo(() => {
+    return cartTotal > 0 ? cartTotal + DELIVERY_FEE : 0;
+  }, [cartTotal])
+
   const cartItemsCount = useMemo(() => {
     return cart.reduce((total, item) => total + item.cantidad, 0)
   }, [cart])
@@ -215,7 +221,9 @@ function App() {
       message += `▪ ${item.cantidad}x ${item.nombre}${details} - S/ ${(item.precio * item.cantidad).toFixed(2)}\n`;
     });
     
-    message += `\n*Total:* S/ ${cartTotal.toFixed(2)}`;
+    message += `\n*Subtotal:* S/ ${cartTotal.toFixed(2)}`;
+    message += `\n*Delivery:* S/ ${DELIVERY_FEE.toFixed(2)}`;
+    message += `\n*Total:* S/ ${finalTotal.toFixed(2)}`;
     
     const url = `https://wa.me/51${phone}?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
@@ -337,7 +345,7 @@ function App() {
                   </div>
                   <span className="font-body text-lg">Ver Pedido</span>
                 </div>
-                <span className="font-title text-xl">S/ {cartTotal.toFixed(2)}</span>
+                <span className="font-title text-xl">S/ {finalTotal.toFixed(2)}</span>
               </button>
             </div>
           </motion.div>
@@ -403,9 +411,19 @@ function App() {
 
               {cart.length > 0 && (
                 <div className="p-4 bg-white border-t-2 border-gray-100 rounded-b-3xl">
-                  <div className="flex justify-between items-center mb-4 font-title text-xl text-primary">
-                    <span>Total:</span>
-                    <span className="text-2xl text-black">S/ {cartTotal.toFixed(2)}</span>
+                  <div className="flex flex-col gap-1 mb-4 border-b pb-4">
+                    <div className="flex justify-between items-center text-gray-600 font-ui text-sm">
+                      <span>Subtotal:</span>
+                      <span>S/ {cartTotal.toFixed(2)}</span>
+                    </div>
+                    <div className="flex justify-between items-center text-gray-600 font-ui text-sm">
+                      <span>Delivery:</span>
+                      <span>S/ {DELIVERY_FEE.toFixed(2)}</span>
+                    </div>
+                    <div className="flex justify-between items-center font-title text-xl text-primary mt-1">
+                      <span>Total:</span>
+                      <span className="text-2xl text-black">S/ {finalTotal.toFixed(2)}</span>
+                    </div>
                   </div>
                   <button
                     onClick={sendWhatsAppOrder}
