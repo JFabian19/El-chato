@@ -1,19 +1,20 @@
 export interface MenuItem {
   nombre: string;
-  precio?: number;
+  precio: number;
+  opcion?: string;
+  opciones?: string[];
+  imagen?: string;
 }
 
 export interface MenuCategory {
   categoria: string;
-  opciones_proteina?: string[];
-  precios_por_proteina?: Record<string, number>;
   items: MenuItem[];
 }
 
 export interface CartItem {
   id: string;
   nombre: string;
-  proteina?: string;
+  variacion?: string;
   precio: number;
   cantidad: number;
 }

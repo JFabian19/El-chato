@@ -2,7 +2,7 @@
   "informacion_restaurante": {
     "nombre": "El Chato Cevicheria",
     "telefonos": ["901389408", "921975554"],
-    "whatsapp": ["918002466"],
+    "whatsapp": ["901389408"],
     "redes_sociales": {
       "tiktok": "foodtruck El Chato",
       "facebook": "foodtruck El Chato"
@@ -10,84 +10,260 @@
   },
   "menu": [
     {
-      "categoria": "Duos Marinos",
-      "opciones_proteina": ["Pota", "Pescado mixto"],
-      "precios_por_proteina": {
-        "Pota": 15.00,
-        "Pescado mixto": 20.00
-      },
+      "categoria": "Causas",
       "items": [
-        { "nombre": "Ceviche - Chicharron" },
-        { "nombre": "Ceviche - Arroz con marisco" },
-        { "nombre": "Ceviche - Chaufa de marisco" },
-        { "nombre": "Ceviche - Causa" },
-        { "nombre": "Causa - Chicharron" },
-        { "nombre": "Causa - Arroz con marisco" },
-        { "nombre": "Causa - Chaufa de marisco" }
-      ]
-    },
-    {
-      "categoria": "Trios Marino",
-      "opciones_proteina": ["Pota", "Pescado mixto"],
-      "precios_por_proteina": {
-        "Pota": 20.00,
-        "Pescado mixto": 25.00
-      },
-      "items": [
-        { "nombre": "Ceviche - Chicharrones - Arroz con marisco" },
-        { "nombre": "Ceviche - Causa - Chaufa de marisco" },
-        { "nombre": "Leche de tigre - Chicharrones - Arroz con marisco" },
-        { "nombre": "Causa - Chicharrones - Arroz con marisco" }
-      ]
-    },
-    {
-      "categoria": "Ronda Marina",
-      "opciones_proteina": ["Pota", "Pescado mixto"],
-      "precios_por_proteina": {
-        "Pota": 25.00,
-        "Pescado mixto": 30.00
-      },
-      "items": [
-        { "nombre": "Ceviche, Causa, Chicharrones, Arroz con marisco, Chaufa de marisco" }
-      ]
-    },
-    {
-      "categoria": "Leche de Tigre",
-      "items": [
-        { "nombre": "Pota", "precio": 10.00 },
-        { "nombre": "Pescado", "precio": 12.00 },
-        { "nombre": "Mixto", "precio": 15.00 },
-        { "nombre": "Langostino", "precio": 15.00 }
-      ]
-    },
-    {
-      "categoria": "Ceviches",
-      "items": [
-        { "nombre": "Pota", "precio": 10.00 },
-        { "nombre": "Pota con pescado", "precio": 12.00 },
-        { "nombre": "Pescado", "precio": 15.00 },
-        { "nombre": "Mixto", "precio": 18.00 },
-        { "nombre": "Langostino", "precio": 20.00 },
-        { "nombre": "Pulpo", "precio": 20.00 }
-      ]
-    },
-    {
-      "categoria": "Chicharrones",
-      "items": [
-        { "nombre": "Pota", "precio": 10.00 },
-        { "nombre": "Pota con pescado", "precio": 12.00 },
-        { "nombre": "Pescado", "precio": 15.00 },
-        { "nombre": "Mixto", "precio": 18.00 },
-        { "nombre": "Calamar", "precio": 20.00 }
+        { "nombre": "Causa de langostino", "precio": 15.00 },
+        { "nombre": "Causa de pulpo", "precio": 15.00 },
+        { "nombre": "Causa primaveral", "precio": 7.00 }
       ]
     },
     {
       "categoria": "Causas Acevichadas",
       "items": [
-        { "nombre": "Pota con pescado", "precio": 12.00 },
-        { "nombre": "Pescado", "precio": 15.00 },
-        { "nombre": "Langostino", "precio": 16.00 },
-        { "nombre": "Pulpo", "precio": 16.00 }
+        { "nombre": "Causa acevichada de pota con pescado", "precio": 12.00 },
+        { "nombre": "Causa acevichada de pescado", "precio": 15.00 },
+        { "nombre": "Causa acevichada de langostino", "precio": 16.00 },
+        { "nombre": "Causa acevichada de pulpo", "precio": 16.00 },
+        { "nombre": "Causa acevichada mixta", "precio": 16.00 }
+      ]
+    },
+    {
+      "categoria": "Leches de tigre",
+      "items": [
+        { "nombre": "Leche de tigre de pota", "precio": 10.00 },
+        { "nombre": "Leche de tigre de pescado", "precio": 12.00 },
+        { "nombre": "Leche de tigre de langostino", "precio": 15.00 },
+        { "nombre": "Leche de tigre mixto", "precio": 15.00 }
+      ]
+    },
+    {
+      "categoria": "Ceviches",
+      "items": [
+        { "nombre": "Ceviche de pota", "precio": 10.00 },
+        { "nombre": "Ceviche de pota con pescado", "precio": 12.00 },
+        { "nombre": "Ceviche de pescado", "precio": 15.00 },
+        { "nombre": "Ceviche mixto", "precio": 18.00 },
+        { "nombre": "Ceviche de langostino", "precio": 20.00 },
+        { "nombre": "Ceviche de pulpo", "precio": 20.00 }
+      ]
+    },
+    {
+      "categoria": "Chicharrones",
+      "items": [
+        { "nombre": "Chicharrones de pota", "precio": 10.00 },
+        { "nombre": "Chicharrones de pota con pescado", "precio": 12.00 },
+        { "nombre": "Chicharrones de pescado", "precio": 15.00 },
+        { "nombre": "Chicharrones mixtos", "precio": 18.00 },
+        { "nombre": "Chicharrones de calamar", "precio": 20.00 },
+        { "nombre": "Chicharrones de pescado con calamar", "precio": 18.00 }
+      ]
+    },
+    {
+      "categoria": "Duos carretilleros",
+      "items": [
+        { "nombre": "Dúo carretillero 1", "opcion": "ceviche de pota - chicharrón de pota", "precio": 15.00 },
+        { "nombre": "Dúo carretillero 2", "opcion": "ceviche de pota - chaufa de marisco", "precio": 15.00 },
+        { "nombre": "Dúo carretillero 3", "opcion": "ceviche de pota – arroz con marisco", "precio": 15.00 },
+        { "nombre": "Dúo carretillero 4", "opcion": "ceviche de pota – causa primaveral", "precio": 15.00 },
+        { "nombre": "Dúo carretillero 5", "opcion": "causa primaveral – chicharrón de pota", "precio": 15.00 },
+        { "nombre": "Dúo carretillero 6", "opcion": "causa primaveral – chaufa de mariscos", "precio": 15.00 },
+        { "nombre": "Dúo carretillero 7", "opcion": "causa primaveral – arroz con mariscos", "precio": 15.00 },
+        { "nombre": "Dúo carretillero 8", "opcion": "chicharrón de pota – chaufa de mariscos", "precio": 15.00 },
+        { "nombre": "Dúo carretillero 9", "opcion": "chicharrón de pota – arroz con mariscos", "precio": 15.00 }
+      ]
+    },
+    {
+      "categoria": "Duos marinos",
+      "items": [
+        {
+          "nombre": "Dúo marino 1",
+          "precio": 20.00,
+          "opciones": [
+            "ceviche de pescado - chicharrón de pescado",
+            "ceviche mixto - chicharrón de pescado"
+          ]
+        },
+        {
+          "nombre": "Dúo marino 2",
+          "precio": 20.00,
+          "opciones": [
+            "ceviche de pescado - chaufa de marisco",
+            "ceviche mixto - chaufa de marisco"
+          ]
+        },
+        {
+          "nombre": "Dúo marino 3",
+          "precio": 20.00,
+          "opciones": [
+            "ceviche de pescado – arroz con marisco",
+            "ceviche mixto – arroz con marisco"
+          ]
+        },
+        {
+          "nombre": "Dúo marino 4",
+          "precio": 20.00,
+          "opciones": [
+            "ceviche de pescado – causa primaveral",
+            "ceviche mixto – causa primaveral"
+          ]
+        },
+        {
+          "nombre": "Dúo marino 5",
+          "precio": 20.00,
+          "opciones": [
+            "causa primaveral – chicharrón de pescado",
+            "causa primaveral – chicharrón mixto"
+          ]
+        },
+        {
+          "nombre": "Dúo marino 6",
+          "precio": 20.00,
+          "opciones": [
+            "chicharrón de pescado – chaufa de mariscos",
+            "chicharrón mixto – chaufa de mariscos"
+          ]
+        },
+        {
+          "nombre": "Dúo marino 7",
+          "precio": 20.00,
+          "opciones": [
+            "chicharrón de pescado – arroz con mariscos",
+            "chicharrón mixto – arroz con mariscos"
+          ]
+        }
+      ]
+    },
+    {
+      "categoria": "Trilogía carretillera",
+      "items": [
+        { "nombre": "Trilogía carretillera 1", "opcion": "ceviche de pota – chicharrón de pota – arroz con mariscos", "precio": 20.00 },
+        { "nombre": "Trilogía carretillera 2", "opcion": "ceviche de pota – chicharrón de pota – chaufa de mariscos", "precio": 20.00 },
+        { "nombre": "Trilogía carretillera 3", "opcion": "ceviche de pota - chicharrón de pota – causa primaveral", "precio": 20.00 },
+        { "nombre": "Trilogía carretillera 4", "opcion": "causa primaveral - chicharrón de pota- arroz con mariscos", "precio": 20.00 },
+        { "nombre": "Trilogía carretillera 5", "opcion": "causa primaveral – chicharrón de pota – chaufa de mariscos", "precio": 20.00 },
+        { "nombre": "Trilogía carretillera 6", "opcion": "causa primaveral – ceviche de pota – arroz con mariscos", "precio": 20.00 },
+        { "nombre": "Trilogía carretillera 7", "opcion": "causa primaveral – ceviche de pota – chaufa de mariscos", "precio": 20.00 }
+      ]
+    },
+    {
+      "categoria": "Trilogía marina",
+      "items": [
+        {
+          "nombre": "Trilogía marina 1",
+          "precio": 25.00,
+          "opciones": [
+            "ceviche de pescado – chicharrón de pescado – arroz con mariscos",
+            "ceviche de mixto – chicharrón de pescado – arroz con mariscos"
+          ]
+        },
+        {
+          "nombre": "Trilogía marina 2",
+          "precio": 25.00,
+          "opciones": [
+            "ceviche de pescado – chicharrón de pescado – chaufa de mariscos",
+            "ceviche de mixto – chicharrón de pescado – chaufa de mariscos"
+          ]
+        },
+        {
+          "nombre": "Trilogía marina 3",
+          "precio": 25.00,
+          "opciones": [
+            "ceviche de pescado - chicharrón de pescado – causa primaveral",
+            "ceviche de mixto - chicharrón de pescado – causa primaveral"
+          ]
+        },
+        {
+          "nombre": "Trilogía marina 4",
+          "precio": 25.00,
+          "opciones": [
+            "causa primaveral - chicharrón de pescado - arroz con mariscos",
+            "causa primaveral - chicharrón de mixto - arroz con mariscos"
+          ]
+        },
+        {
+          "nombre": "Trilogía marina 5",
+          "precio": 25.00,
+          "opciones": [
+            "causa primaveral – chicharrón de pescado – chaufa de mariscos",
+            "causa primaveral – chicharrón de mixto – chaufa de mariscos"
+          ]
+        },
+        {
+          "nombre": "Trilogía marina 6",
+          "precio": 25.00,
+          "opciones": [
+            "causa primaveral – ceviche de pescado – arroz con mariscos",
+            "causa primaveral – ceviche de mixto – arroz con mariscos"
+          ]
+        },
+        {
+          "nombre": "Trilogía marina 7",
+          "precio": 25.00,
+          "opciones": [
+            "causa primaveral – ceviche de pescado – chaufa de mariscos",
+            "causa primaveral – ceviche de mixto – chaufa de mariscos"
+          ]
+        }
+      ]
+    },
+    {
+      "categoria": "Ronda carretillera",
+      "items": [
+        { "nombre": "Ronda carretillera 1", "opcion": "ceviche de pota - causa primaveral - chicharrones de pota - arroz con marisco - chaufa de marisco", "precio": 25.00 },
+        { "nombre": "Ronda carretillera 2", "opcion": "ceviche - leche de tigre - chicharrones de pota - arroz con marisco - chaufa de marisco", "precio": 25.00 }
+      ]
+    },
+    {
+      "categoria": "Ronda marina",
+      "items": [
+        { "nombre": "Ronda marina 1", "opcion": "ceviche de pescado - causa primaveral - chicharrones de pescado - arroz con marisco - chaufa de marisco", "precio": 30.00 },
+        { "nombre": "Ronda marina 2", "opcion": "ceviche de mixto - causa primaveral - chicharrones de pescado - arroz con marisco - chaufa de marisco", "precio": 30.00 },
+        { "nombre": "Ronda marina 3", "opcion": "ceviche pescado - leche de tigre - chicharrones de pescado - arroz con marisco - chaufa de marisco", "precio": 30.00 },
+        { "nombre": "Ronda marina 4", "opcion": "ceviche mixto - leche de tigre - chicharrones de pescado - arroz con marisco - chaufa de marisco", "precio": 30.00 }
+      ]
+    },
+    {
+      "categoria": "Pescados fritos",
+      "items": [
+        { "nombre": "Trucha dorada (trucha-yucas-arroz blanco-sarsa criolla)", "precio": 18.00 },
+        { "nombre": "Chita frita (chita-yucas-arroz blanco-sarsa criolla)", "precio": 25.00 },
+        { "nombre": "Merluza dorada (merluza-yucas-arroz blanco-sarsa criolla)", "precio": 12.00 }
+      ]
+    },
+    {
+      "categoria": "Sudados",
+      "items": [
+        { "nombre": "Sudado de Trucha (yucas-arroz blanco)", "precio": 20.00 },
+        { "nombre": "Sudado de Chita (yucas-arroz blanco)", "precio": 30.00 },
+        { "nombre": "Sudado de Merluza (yucas-arroz blanco)", "precio": 12.00 }
+      ]
+    },
+    {
+      "categoria": "Maretazos marinos para 3 personas",
+      "items": [
+        { "nombre": "Maretazo 1 (Fuente de Ceviche de pota con pescado)", "precio": 32.00 },
+        { "nombre": "Maretazo 2 (Fuente de Ceviche de pescado)", "precio": 40.00 },
+        { "nombre": "Maretazo 3 (Fuente de Ceviche mixto)", "precio": 50.00 },
+        { "nombre": "Maretazo 4 (Fuente de chicharrón de pota con pescado)", "precio": 33.00 },
+        { "nombre": "Maretazo 5 (Fuente de chicharrón de pescado)", "precio": 42.00 },
+        { "nombre": "Maretazo 6 (Fuente de chicharrón mixto)", "precio": 52.00 },
+        { "nombre": "Maretazo 7 (Fuente de chicharrón de calamar)", "precio": 58.00 }
+      ]
+    },
+    {
+      "categoria": "Bebidas naturales",
+      "items": [
+        { "nombre": "Chicha familiar", "precio": 4.00 },
+        { "nombre": "Chicha personal", "precio": 1.50 },
+        { "nombre": "Maracuyá familiar", "precio": 4.00 },
+        { "nombre": "Maracuyá personal", "precio": 1.50 }
+      ]
+    },
+    {
+      "categoria": "Gaseosas",
+      "items": [
+        { "nombre": "Inca cola personal", "precio": 5.00 },
+        { "nombre": "Coca cola personal", "precio": 5.00 }
       ]
     }
   ]

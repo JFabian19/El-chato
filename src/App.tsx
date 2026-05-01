@@ -1,8 +1,9 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ShoppingCart, Plus, Minus, X, MessageCircle } from 'lucide-react'
+import { ShoppingCart, Plus, Minus, X } from 'lucide-react'
+import { FaWhatsapp, FaTiktok } from 'react-icons/fa'
 import menuDataJson from './data.json'
-import type { MenuData, MenuCategory, MenuItem, CartItem } from './types'
+import type { MenuData, MenuItem, CartItem } from './types'
 import clsx from 'clsx'
 
 const data = menuDataJson as MenuData
@@ -27,50 +28,60 @@ const InfinityMarquee = () => {
 
 const ProductCard = ({
   item,
-  category,
   onAdd
 }: {
   item: MenuItem;
-  category: MenuCategory;
-  onAdd: (item: MenuItem, proteina?: string, price?: number) => void;
+  onAdd: (item: MenuItem, variacion?: string, price?: number) => void;
 }) => {
-  const hasProteinOptions = category.opciones_proteina && category.precios_por_proteina;
-  const [selectedProtein, setSelectedProtein] = useState<string>(
-    hasProteinOptions ? category.opciones_proteina![0] : ''
+  const hasOptions = item.opciones && item.opciones.length > 0;
+  const [selectedOption, setSelectedOption] = useState<string>(
+    hasOptions ? item.opciones![0] : ''
   );
 
-  const currentPrice = hasProteinOptions
-    ? category.precios_por_proteina![selectedProtein]
-    : item.precio;
+  const currentPrice = item.precio;
 
   return (
     <motion.div
       whileHover={{ y: -4 }}
-      className="bg-white/80 rounded-[2rem] p-5 shadow-sm border-4 border-black relative mb-4 transition-shadow hover:shadow-lg backdrop-blur-md"
+      className="bg-white/80 rounded-[1.5rem] p-3 sm:p-4 shadow-sm border-[3px] border-black relative transition-shadow hover:shadow-lg backdrop-blur-md flex flex-col h-full"
     >
-      <div className="absolute top-[-10px] right-[-10px] z-10">
+      <div className="absolute top-[-12px] right-[-10px] z-10">
         <motion.div 
           animate={{ scale: [1, 1.05, 1] }} 
           transition={{ repeat: Infinity, duration: 2 }}
-          className="comic-badge bg-[#FFD700] text-black text-lg font-bold"
+          className="comic-badge bg-[#FFD700] text-black text-sm sm:text-lg font-bold px-2 py-1 sm:px-3 sm:py-1 border-2 sm:border-[3px]"
         >
           S/ {currentPrice?.toFixed(2)}
         </motion.div>
       </div>
 
-      <h3 className="font-body text-xl text-primary leading-tight mb-2 pr-14">
+      <div className="w-full aspect-square bg-gray-200 rounded-xl mb-3 flex items-center justify-center overflow-hidden border-2 border-black/10 shrink-0">
+        {item.imagen ? (
+          <img src={item.imagen} alt={item.nombre} className="w-full h-full object-cover" />
+        ) : (
+          <span className="text-gray-400 font-ui text-xs sm:text-sm">Sin imagen</span>
+        )}
+      </div>
+
+      <h3 className="font-body text-base sm:text-xl text-primary leading-tight mb-2 flex-grow pr-0 sm:pr-0">
         {item.nombre}
       </h3>
+      
+      {item.opcion && (
+        <p className="text-xs sm:text-sm text-gray-600 font-ui mb-2 leading-snug">
+          {item.opcion}
+        </p>
+      )}
 
-      {hasProteinOptions && (
-        <div className="flex flex-wrap gap-2 mb-3 mt-4">
-          {category.opciones_proteina!.map(p => (
+      {hasOptions && (
+        <div className="flex flex-wrap gap-1 mb-2 mt-2">
+          {item.opciones!.map(p => (
             <button
               key={p}
-              onClick={() => setSelectedProtein(p)}
+              onClick={() => setSelectedOption(p)}
               className={clsx(
-                "px-4 py-1 rounded-full text-sm font-ui font-bold border-2 transition-colors",
-                selectedProtein === p
+                "px-2 py-1 sm:px-4 sm:py-1 rounded-full text-[10px] sm:text-xs font-ui font-bold border-2 transition-colors",
+                selectedOption === p
                   ? "bg-secondary text-black border-black"
                   : "bg-gray-100 text-gray-500 border-gray-300 hover:border-black"
               )}
@@ -81,12 +92,12 @@ const ProductCard = ({
         </div>
       )}
 
-      <div className="flex justify-end mt-4">
+      <div className="flex justify-end mt-2 shrink-0">
         <button
-          onClick={() => onAdd(item, hasProteinOptions ? selectedProtein : undefined, currentPrice)}
-          className="bg-primary hover:bg-primary/90 text-white rounded-full h-12 w-12 flex items-center justify-center border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-transform active:translate-y-1 active:translate-x-1"
+          onClick={() => onAdd(item, hasOptions ? selectedOption : undefined, currentPrice)}
+          className="bg-primary hover:bg-primary/90 text-white rounded-full h-10 w-10 sm:h-12 sm:w-12 flex items-center justify-center border-2 sm:border-[3px] border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-transform active:translate-y-1 active:translate-x-1"
         >
-          <Plus size={24} className="text-white" strokeWidth={3} />
+          <Plus size={20} className="text-white" strokeWidth={3} />
         </button>
       </div>
     </motion.div>
@@ -98,6 +109,33 @@ function App() {
   const [cart, setCart] = useState<CartItem[]>([])
   const [isCartOpen, setIsCartOpen] = useState(false)
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = data.menu.map(c => document.getElementById(c.categoria));
+      
+      let currentActive = activeCategory;
+      for (const section of sections) {
+        if (section) {
+          const rect = section.getBoundingClientRect();
+          if (rect.top <= 200 && rect.bottom >= 150) {
+            currentActive = section.id;
+          }
+        }
+      }
+
+      if (currentActive !== activeCategory) {
+        setActiveCategory(currentActive);
+        const navBtn = document.getElementById(`nav-${currentActive}`);
+        if (navBtn) {
+          navBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [activeCategory]);
+
   const cartTotal = useMemo(() => {
     return cart.reduce((total, item) => total + item.precio * item.cantidad, 0)
   }, [cart])
@@ -106,15 +144,15 @@ function App() {
     return cart.reduce((total, item) => total + item.cantidad, 0)
   }, [cart])
 
-  const addToCart = (item: MenuItem, proteina?: string, price?: number) => {
+  const addToCart = (item: MenuItem, variacion?: string, price?: number) => {
     if (!price) return;
-    const id = `${item.nombre}-${proteina || 'default'}`;
+    const id = `${item.nombre}-${variacion || 'default'}`;
     setCart(prev => {
       const existing = prev.find(c => c.id === id);
       if (existing) {
         return prev.map(c => c.id === id ? { ...c, cantidad: c.cantidad + 1 } : c);
       }
-      return [...prev, { id, nombre: item.nombre, proteina, precio: price, cantidad: 1 }];
+      return [...prev, { id, nombre: item.nombre, variacion, precio: price, cantidad: 1 }];
     });
   };
 
@@ -135,7 +173,7 @@ function App() {
     let message = `¡Hola *${data.informacion_restaurante.nombre}*! 🌊 Me gustaría pedir lo siguiente:\n\n`;
     
     cart.forEach(item => {
-      const details = item.proteina ? ` (${item.proteina})` : '';
+      const details = item.variacion ? ` (${item.variacion})` : '';
       message += `▪ ${item.cantidad}x ${item.nombre}${details} - S/ ${(item.precio * item.cantidad).toFixed(2)}\n`;
     });
     
@@ -155,8 +193,11 @@ function App() {
             EL CHATO
           </h1>
           <div className="flex gap-2">
-            <a href={`https://wa.me/51${data.informacion_restaurante.whatsapp[0]}`} target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-secondary border-2 border-black flex justify-center items-center hover:scale-105 transition-transform shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
-              <MessageCircle size={20} className="text-black" />
+            <a href="https://www.tiktok.com/@foodtruckelchato?_r=1&_t=ZS-95yhlUGVAor" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-black border-2 border-black flex justify-center items-center hover:scale-105 transition-transform shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+              <FaTiktok size={18} className="text-white" />
+            </a>
+            <a href={`https://wa.me/51${data.informacion_restaurante.whatsapp[0]}`} target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-[#25D366] border-2 border-black flex justify-center items-center hover:scale-105 transition-transform shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+              <FaWhatsapp size={22} className="text-white" />
             </a>
             <button 
               onClick={() => setIsCartOpen(true)}
@@ -189,6 +230,7 @@ function App() {
             {data.menu.map(cat => (
               <button
                 key={cat.categoria}
+                id={`nav-${cat.categoria}`}
                 onClick={() => {
                   setActiveCategory(cat.categoria);
                   document.getElementById(cat.categoria)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -213,12 +255,11 @@ function App() {
               <h2 className="font-title text-3xl text-primary mb-6 tracking-wide drop-shadow-sm">
                 {cat.categoria}
               </h2>
-              <div className="flex flex-col gap-4">
+              <div className="grid grid-cols-2 gap-3 sm:gap-4">
                 {cat.items.map((item, idx) => (
                   <ProductCard 
                     key={`${item.nombre}-${idx}`}
                     item={item}
-                    category={cat}
                     onAdd={addToCart}
                   />
                 ))}
@@ -293,8 +334,8 @@ function App() {
                       <div key={item.id} className="flex justify-between items-center bg-gray-50 p-3 rounded-2xl border-2 border-gray-200">
                         <div className="flex-1 pr-2">
                           <h4 className="font-body text-md text-primary leading-tight">{item.nombre}</h4>
-                          {item.proteina && (
-                            <p className="text-sm text-gray-500 font-ui mt-1">{item.proteina}</p>
+                          {item.variacion && (
+                            <p className="text-sm text-gray-500 font-ui mt-1">{item.variacion}</p>
                           )}
                           <p className="font-bold text-black mt-1 font-ui">S/ {(item.precio * item.cantidad).toFixed(2)}</p>
                         </div>
@@ -323,7 +364,7 @@ function App() {
                     onClick={sendWhatsAppOrder}
                     className="w-full comic-button !bg-[#25D366] !text-black !py-4 rounded-2xl flex justify-center items-center gap-2 group"
                   >
-                    <MessageCircle className="group-hover:scale-110 transition-transform" />
+                    <FaWhatsapp size={24} className="group-hover:scale-110 transition-transform" />
                     Enviar pedido a WhatsApp
                   </button>
                 </div>
