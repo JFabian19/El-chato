@@ -203,8 +203,7 @@ function App() {
   const updateQuantity = (id: string, delta: number) => {
     setCart(prev => prev.map(c => {
       if (c.id === id) {
-        const newQty = c.cantidad + delta;
-        return newQty > 0 ? { ...c, cantidad: newQty } : c;
+        return { ...c, cantidad: c.cantidad + delta };
       }
       return c;
     }).filter(c => c.cantidad > 0));
