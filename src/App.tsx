@@ -58,8 +58,8 @@ const ProductCard = ({
       </div>
 
       <div className="w-full aspect-square bg-gray-200 rounded-xl mb-3 flex items-center justify-center overflow-hidden border-2 border-black/10 shrink-0">
-        {item.imagen ? (
-          <img src={item.imagen} alt={item.nombre} className="w-full h-full object-cover" />
+        {(item.imagenes?.[selectedOption] || item.imagen) ? (
+          <img src={item.imagenes?.[selectedOption] || item.imagen} alt={item.nombre} className="w-full h-full object-cover transition-opacity duration-300" />
         ) : (
           <span className="text-gray-400 font-ui text-xs sm:text-sm">Sin imagen</span>
         )}

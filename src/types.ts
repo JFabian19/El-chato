@@ -4,6 +4,7 @@ export interface MenuItem {
   opcion?: string;
   opciones?: string[];
   imagen?: string;
+  imagenes?: Record<string, string>;
 }
 
 export interface MenuCategory {

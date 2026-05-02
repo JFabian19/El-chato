@@ -227,7 +227,11 @@
           "opciones": [
             "ceviche de pescado - chicharrón de pescado",
             "ceviche mixto - chicharrón de pescado"
-          ]
+          ],
+          "imagenes": {
+            "ceviche de pescado - chicharrón de pescado": "/platos/duo_marino_1_1.png",
+            "ceviche mixto - chicharrón de pescado": "/platos/duo_marino_1_2.png"
+          }
         },
         {
           "nombre": "Dúo marino 2",
@@ -235,7 +239,11 @@
           "opciones": [
             "ceviche de pescado - chaufa de marisco",
             "ceviche mixto - chaufa de marisco"
-          ]
+          ],
+          "imagenes": {
+            "ceviche de pescado - chaufa de marisco": "/platos/duo_marino_2_1.png",
+            "ceviche mixto - chaufa de marisco": "/platos/duo_marino_2_2.png"
+          }
         },
         {
           "nombre": "Dúo marino 3",
@@ -243,7 +251,11 @@
           "opciones": [
             "ceviche de pescado – arroz con marisco",
             "ceviche mixto – arroz con marisco"
-          ]
+          ],
+          "imagenes": {
+            "ceviche de pescado – arroz con marisco": "/platos/duo_marino_3_1.png",
+            "ceviche mixto – arroz con marisco": "/platos/duo_marino_3_2.png"
+          }
         },
         {
           "nombre": "Dúo marino 4",
@@ -251,7 +263,11 @@
           "opciones": [
             "ceviche de pescado – causa primaveral",
             "ceviche mixto – causa primaveral"
-          ]
+          ],
+          "imagenes": {
+            "ceviche de pescado – causa primaveral": "/platos/duo_marino_4_1.png",
+            "ceviche mixto – causa primaveral": "/platos/duo_marino_4_2.png"
+          }
         },
         {
           "nombre": "Dúo marino 5",
@@ -259,7 +275,11 @@
           "opciones": [
             "causa primaveral – chicharrón de pescado",
             "causa primaveral – chicharrón mixto"
-          ]
+          ],
+          "imagenes": {
+            "causa primaveral – chicharrón de pescado": "/platos/duo_marino_5_1.png",
+            "causa primaveral – chicharrón mixto": "/platos/duo_marino_5_2.png"
+          }
         },
         {
           "nombre": "Dúo marino 6",
@@ -267,7 +287,11 @@
           "opciones": [
             "chicharrón de pescado – chaufa de mariscos",
             "chicharrón mixto – chaufa de mariscos"
-          ]
+          ],
+          "imagenes": {
+            "chicharrón de pescado – chaufa de mariscos": "/platos/duo_marino_6_1.png",
+            "chicharrón mixto – chaufa de mariscos": "/platos/duo_marino_6_2.png"
+          }
         },
         {
           "nombre": "Dúo marino 7",
@@ -275,7 +299,11 @@
           "opciones": [
             "chicharrón de pescado – arroz con mariscos",
             "chicharrón mixto – arroz con mariscos"
-          ]
+          ],
+          "imagenes": {
+            "chicharrón de pescado – arroz con mariscos": "/platos/duo_marino_7_1.png",
+            "chicharrón mixto – arroz con mariscos": "/platos/duo_marino_7_2.png"
+          }
         }
       ]
     },
@@ -285,37 +313,44 @@
         {
           "nombre": "Trilogía carretillera 1",
           "opcion": "ceviche de pota – chicharrón de pota – arroz con mariscos",
-          "precio": 20
+          "precio": 20,
+          "imagen": "/platos/Trilogía carretillera 1.png"
         },
         {
           "nombre": "Trilogía carretillera 2",
           "opcion": "ceviche de pota – chicharrón de pota – chaufa de mariscos",
-          "precio": 20
+          "precio": 20,
+          "imagen": "/platos/Trilogía carretillera 2.png"
         },
         {
           "nombre": "Trilogía carretillera 3",
           "opcion": "ceviche de pota - chicharrón de pota – causa primaveral",
-          "precio": 20
+          "precio": 20,
+          "imagen": "/platos/Trilogía carretillera 3.png"
         },
         {
           "nombre": "Trilogía carretillera 4",
           "opcion": "causa primaveral - chicharrón de pota- arroz con mariscos",
-          "precio": 20
+          "precio": 20,
+          "imagen": "/platos/Trilogía carretillera 4.png"
         },
         {
           "nombre": "Trilogía carretillera 5",
           "opcion": "causa primaveral – chicharrón de pota – chaufa de mariscos",
-          "precio": 20
+          "precio": 20,
+          "imagen": "/platos/Trilogía carretillera 5.png"
         },
         {
           "nombre": "Trilogía carretillera 6",
           "opcion": "causa primaveral – ceviche de pota – arroz con mariscos",
-          "precio": 20
+          "precio": 20,
+          "imagen": "/platos/Trilogía carretillera 6.png"
         },
         {
           "nombre": "Trilogía carretillera 7",
           "opcion": "causa primaveral – ceviche de pota – chaufa de mariscos",
-          "precio": 20
+          "precio": 20,
+          "imagen": "/platos/Trilogía carretillera 7.png"
         }
       ]
     },
@@ -328,7 +363,11 @@
           "opciones": [
             "ceviche de pescado – chicharrón de pescado – arroz con mariscos",
             "ceviche de mixto – chicharrón de pescado – arroz con mariscos"
-          ]
+          ],
+          "imagenes": {
+            "ceviche de pescado – chicharrón de pescado – arroz con mariscos": "/platos/trilogia_marina_1_1.png",
+            "ceviche de mixto – chicharrón de pescado – arroz con mariscos": "/platos/trilogia_marina_1_2.png"
+          }
         },
         {
           "nombre": "Trilogía marina 2",
@@ -336,7 +375,11 @@
           "opciones": [
             "ceviche de pescado – chicharrón de pescado – chaufa de mariscos",
             "ceviche de mixto – chicharrón de pescado – chaufa de mariscos"
-          ]
+          ],
+          "imagenes": {
+            "ceviche de pescado – chicharrón de pescado – chaufa de mariscos": "/platos/trilogia_marina_2_1.png",
+            "ceviche de mixto – chicharrón de pescado – chaufa de mariscos": "/platos/trilogia_marina_2_2.png"
+          }
         },
         {
           "nombre": "Trilogía marina 3",
@@ -344,7 +387,11 @@
           "opciones": [
             "ceviche de pescado - chicharrón de pescado – causa primaveral",
             "ceviche de mixto - chicharrón de pescado – causa primaveral"
-          ]
+          ],
+          "imagenes": {
+            "ceviche de pescado - chicharrón de pescado – causa primaveral": "/platos/trilogia_marina_3_1.png",
+            "ceviche de mixto - chicharrón de pescado – causa primaveral": "/platos/trilogia_marina_3_2.png"
+          }
         },
         {
           "nombre": "Trilogía marina 4",
@@ -352,7 +399,11 @@
           "opciones": [
             "causa primaveral - chicharrón de pescado - arroz con mariscos",
             "causa primaveral - chicharrón de mixto - arroz con mariscos"
-          ]
+          ],
+          "imagenes": {
+            "causa primaveral - chicharrón de pescado - arroz con mariscos": "/platos/trilogia_marina_4_1.png",
+            "causa primaveral - chicharrón de mixto - arroz con mariscos": "/platos/trilogia_marina_4_2.png"
+          }
         },
         {
           "nombre": "Trilogía marina 5",
@@ -360,7 +411,11 @@
           "opciones": [
             "causa primaveral – chicharrón de pescado – chaufa de mariscos",
             "causa primaveral – chicharrón de mixto – chaufa de mariscos"
-          ]
+          ],
+          "imagenes": {
+            "causa primaveral – chicharrón de pescado – chaufa de mariscos": "/platos/trilogia_marina_5_1.png",
+            "causa primaveral – chicharrón de mixto – chaufa de mariscos": "/platos/trilogia_marina_5_2.png"
+          }
         },
         {
           "nombre": "Trilogía marina 6",
@@ -368,7 +423,11 @@
           "opciones": [
             "causa primaveral – ceviche de pescado – arroz con mariscos",
             "causa primaveral – ceviche de mixto – arroz con mariscos"
-          ]
+          ],
+          "imagenes": {
+            "causa primaveral – ceviche de pescado – arroz con mariscos": "/platos/trilogia_marina_6_1.png",
+            "causa primaveral – ceviche de mixto – arroz con mariscos": "/platos/trilogia_marina_6_2.png"
+          }
         },
         {
           "nombre": "Trilogía marina 7",
@@ -376,7 +435,11 @@
           "opciones": [
             "causa primaveral – ceviche de pescado – chaufa de mariscos",
             "causa primaveral – ceviche de mixto – chaufa de mariscos"
-          ]
+          ],
+          "imagenes": {
+            "causa primaveral – ceviche de pescado – chaufa de mariscos": "/platos/trilogia_marina_7_1.png",
+            "causa primaveral – ceviche de mixto – chaufa de mariscos": "/platos/trilogia_marina_7_2.png"
+          }
         }
       ]
     },
@@ -391,7 +454,8 @@
         {
           "nombre": "Ronda carretillera 2",
           "opcion": "ceviche - leche de tigre - chicharrones de pota - arroz con marisco - chaufa de marisco",
-          "precio": 25
+          "precio": 25,
+          "imagen": "/platos/Ronda carretillera 2.png"
         }
       ]
     },
@@ -401,7 +465,8 @@
         {
           "nombre": "Ronda marina 1",
           "opcion": "ceviche de pescado - causa primaveral - chicharrones de pescado - arroz con marisco - chaufa de marisco",
-          "precio": 30
+          "precio": 30,
+          "imagen": "/platos/Ronda marina 1.png"
         },
         {
           "nombre": "Ronda marina 2",
@@ -411,12 +476,14 @@
         {
           "nombre": "Ronda marina 3",
           "opcion": "ceviche pescado - leche de tigre - chicharrones de pescado - arroz con marisco - chaufa de marisco",
-          "precio": 30
+          "precio": 30,
+          "imagen": "/platos/Ronda marina 3.png"
         },
         {
           "nombre": "Ronda marina 4",
           "opcion": "ceviche mixto - leche de tigre - chicharrones de pescado - arroz con marisco - chaufa de marisco",
-          "precio": 30
+          "precio": 30,
+          "imagen": "/platos/Ronda marina 4.png"
         }
       ]
     },
@@ -425,15 +492,18 @@
       "items": [
         {
           "nombre": "Trucha dorada (trucha-yucas-arroz blanco-sarsa criolla)",
-          "precio": 18
+          "precio": 18,
+          "imagen": "/platos/Trucha dorada.jpeg"
         },
         {
           "nombre": "Chita frita (chita-yucas-arroz blanco-sarsa criolla)",
-          "precio": 25
+          "precio": 25,
+          "imagen": "/platos/Chita frita.jpeg"
         },
         {
           "nombre": "Merluza dorada (merluza-yucas-arroz blanco-sarsa criolla)",
-          "precio": 12
+          "precio": 12,
+          "imagen": "/platos/Merluza dorada.jpeg"
         }
       ]
     },
@@ -442,15 +512,18 @@
       "items": [
         {
           "nombre": "Sudado de Trucha (yucas-arroz blanco)",
-          "precio": 20
+          "precio": 20,
+          "imagen": "/platos/Sudado de Trucha.jpg"
         },
         {
           "nombre": "Sudado de Chita (yucas-arroz blanco)",
-          "precio": 30
+          "precio": 30,
+          "imagen": "/platos/Sudado de Chita.jpeg"
         },
         {
           "nombre": "Sudado de Merluza (yucas-arroz blanco)",
-          "precio": 12
+          "precio": 12,
+          "imagen": "/platos/Sudado de Merluza.webp"
         }
       ]
     },
@@ -459,31 +532,38 @@
       "items": [
         {
           "nombre": "Maretazo 1 (Fuente de Ceviche de pota con pescado)",
-          "precio": 32
+          "precio": 32,
+          "imagen": "/platos/Maretazo 1.jpeg"
         },
         {
           "nombre": "Maretazo 2 (Fuente de Ceviche de pescado)",
-          "precio": 40
+          "precio": 40,
+          "imagen": "/platos/Maretazo 2.webp"
         },
         {
           "nombre": "Maretazo 3 (Fuente de Ceviche mixto)",
-          "precio": 50
+          "precio": 50,
+          "imagen": "/platos/Fuente de Ceviche mixto.jpeg"
         },
         {
           "nombre": "Maretazo 4 (Fuente de chicharrón de pota con pescado)",
-          "precio": 33
+          "precio": 33,
+          "imagen": "/platos/Fuente de chicharrón de pota con pescado.jpeg"
         },
         {
           "nombre": "Maretazo 5 (Fuente de chicharrón de pescado)",
-          "precio": 42
+          "precio": 42,
+          "imagen": "/platos/Fuente de chicharrón de pescado.jpg"
         },
         {
           "nombre": "Maretazo 6 (Fuente de chicharrón mixto)",
-          "precio": 52
+          "precio": 52,
+          "imagen": "/platos/Fuente de chicharrón mixto.webp"
         },
         {
           "nombre": "Maretazo 7 (Fuente de chicharrón de calamar)",
-          "precio": 58
+          "precio": 58,
+          "imagen": "/platos/Fuente de chicharrón de calamar.jpeg"
         }
       ]
     },
