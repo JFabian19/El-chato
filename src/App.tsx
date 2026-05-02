@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ShoppingCart, Plus, Minus, X, Anchor } from 'lucide-react'
+import { ShoppingCart, Plus, Minus, X, Anchor, Trash2 } from 'lucide-react'
 import { FaWhatsapp, FaTiktok } from 'react-icons/fa'
 import menuDataJson from './data.json'
 import type { MenuData, MenuItem, CartItem } from './types'
@@ -394,13 +394,18 @@ function App() {
                           )}
                           <p className="font-bold text-black mt-1 font-ui">S/ {(item.precio * item.cantidad).toFixed(2)}</p>
                         </div>
-                        <div className="flex items-center gap-3 bg-white border-2 border-black rounded-full px-2 py-1 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
-                          <button onClick={() => updateQuantity(item.id, -1)} className="p-1 hover:bg-gray-100 rounded-full text-black">
-                            <Minus size={16} strokeWidth={3} />
-                          </button>
-                          <span className="font-body w-4 text-center">{item.cantidad}</span>
-                          <button onClick={() => updateQuantity(item.id, 1)} className="p-1 hover:bg-gray-100 rounded-full text-black">
-                            <Plus size={16} strokeWidth={3} />
+                        <div className="flex items-center gap-1 sm:gap-2">
+                          <div className="flex items-center gap-3 bg-white border-2 border-black rounded-full px-2 py-1 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                            <button onClick={() => updateQuantity(item.id, -1)} className="p-1 hover:bg-gray-100 rounded-full text-black">
+                              <Minus size={16} strokeWidth={3} />
+                            </button>
+                            <span className="font-body w-4 text-center">{item.cantidad}</span>
+                            <button onClick={() => updateQuantity(item.id, 1)} className="p-1 hover:bg-gray-100 rounded-full text-black">
+                              <Plus size={16} strokeWidth={3} />
+                            </button>
+                          </div>
+                          <button onClick={() => updateQuantity(item.id, -item.cantidad)} className="p-2 bg-red-100 text-red-500 rounded-full hover:bg-red-200 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] sm:ml-1 transition-colors">
+                            <Trash2 size={16} strokeWidth={2.5} />
                           </button>
                         </div>
                       </div>
