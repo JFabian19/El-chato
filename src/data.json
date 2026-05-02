@@ -493,17 +493,17 @@
         {
           "nombre": "Trucha dorada (trucha-yucas-arroz blanco-sarsa criolla)",
           "precio": 18,
-          "imagen": "/platos/Trucha dorada.jpeg"
+          "imagen": "/platos/Trucha_dorada.jpeg"
         },
         {
           "nombre": "Chita frita (chita-yucas-arroz blanco-sarsa criolla)",
           "precio": 25,
-          "imagen": "/platos/Chita frita.jpeg"
+          "imagen": "/platos/Chita_frita.jpeg"
         },
         {
           "nombre": "Merluza dorada (merluza-yucas-arroz blanco-sarsa criolla)",
           "precio": 12,
-          "imagen": "/platos/Merluza dorada.jpeg"
+          "imagen": "/platos/Merluza_dorada.jpeg"
         }
       ]
     },
