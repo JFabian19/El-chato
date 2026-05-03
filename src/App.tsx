@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ShoppingCart, Plus, Minus, X, Anchor, Trash2 } from 'lucide-react'
 import { FaWhatsapp, FaTiktok } from 'react-icons/fa'
 import menuDataJson from './data.json'
-import type { MenuData, MenuItem, CartItem } from './types'
+import type { MenuData, MenuItem, CartItem, MenuCategory } from './types'
 import clsx from 'clsx'
 
 const data = menuDataJson as MenuData
@@ -41,6 +41,7 @@ const ProductCard = ({
   );
 
   const currentPrice = item.precio;
+  const currentImage = item.imagenes?.[selectedOption] || item.imagen;
 
   return (
     <motion.div
@@ -57,12 +58,25 @@ const ProductCard = ({
         </motion.div>
       </div>
 
-      <div className="w-full aspect-square bg-gray-200 rounded-xl mb-3 flex items-center justify-center overflow-hidden border-2 border-black/10 shrink-0">
-        {(item.imagenes?.[selectedOption] || item.imagen) ? (
-          <img src={item.imagenes?.[selectedOption] || item.imagen} alt={item.nombre} className="w-full h-full object-cover transition-opacity duration-300" />
-        ) : (
-          <span className="text-gray-400 font-ui text-xs sm:text-sm">Sin imagen</span>
-        )}
+      <div className="w-full aspect-square bg-gray-200 rounded-xl mb-3 flex items-center justify-center overflow-hidden border-2 border-black/10 shrink-0 relative">
+        <AnimatePresence mode="wait">
+          {currentImage ? (
+            <motion.img
+              key={currentImage}
+              src={currentImage}
+              alt={item.nombre}
+              loading="lazy"
+              decoding="async"
+              initial={{ opacity: 0, scale: 1.05 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.35, ease: 'easeInOut' }}
+              className="w-full h-full object-cover absolute inset-0"
+            />
+          ) : (
+            <span className="text-gray-400 font-ui text-xs sm:text-sm">Sin imagen</span>
+          )}
+        </AnimatePresence>
       </div>
 
       <div className="flex flex-col flex-grow">
@@ -145,13 +159,128 @@ const ProductCard = ({
 };
 
 function App() {
-  const [activeCategory, setActiveCategory] = useState<string>(data.menu[0].categoria)
+  const [menu, setMenu] = useState<MenuCategory[]>([])
+  const [activeCategory, setActiveCategory] = useState<string>('')
   const [cart, setCart] = useState<CartItem[]>([])
   const [isCartOpen, setIsCartOpen] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchSheets = async () => {
+      try {
+        const SHEET_ID = '1Wt-x_LuH59nWYhEC8sbRBULxjwxPgp01qzNVpCiyBkw';
+        
+        const catRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=Categorias`);
+        const catText = await catRes.text();
+        const catJson = JSON.parse(catText.substring(47).slice(0, -2));
+        const categoriesOrder = catJson.table.rows.map((r: any) => r.c[0]?.v).filter(Boolean);
+
+        const platRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=Platos`);
+        const platText = await platRes.text();
+        const platJson = JSON.parse(platText.substring(47).slice(0, -2));
+
+        const cols = platJson.table.cols.map((c: any) => c.label?.toLowerCase().trim() || '');
+        const cCat = cols.indexOf('categoria');
+        const cPlato = cols.indexOf('plato');
+        const cPrecio = cols.indexOf('precio');
+        const cDesc = cols.indexOf('descripcion');
+        const cOp1 = cols.indexOf('opcion1');
+        const cOp2 = cols.indexOf('opcion2');
+        const cImg = cols.indexOf('imagen url');
+        const cImgOp2 = cols.indexOf('imagen url opcion 2');
+
+        const parsedMenu: MenuCategory[] = categoriesOrder.map((cat: string) => ({ categoria: cat, items: [] }));
+
+        for (const row of platJson.table.rows) {
+          if (!row.c[cCat]?.v || !row.c[cPlato]?.v) continue;
+          const catName = String(row.c[cCat].v).trim();
+          const item: MenuItem = {
+            nombre: String(row.c[cPlato].v).trim(),
+            precio: Number(row.c[cPrecio]?.v || 0),
+          };
+          if (cDesc >= 0 && row.c[cDesc]?.v) item.opcion = String(row.c[cDesc].v).trim();
+          
+          const op1 = cOp1 >= 0 && row.c[cOp1]?.v ? String(row.c[cOp1].v).trim() : '';
+          const op2 = cOp2 >= 0 && row.c[cOp2]?.v ? String(row.c[cOp2].v).trim() : '';
+          
+          if (op1 || op2) {
+            item.opciones = [];
+            if (op1) item.opciones.push(op1);
+            if (op2) item.opciones.push(op2);
+            
+            (item as any)._rawImg1 = cImg >= 0 && row.c[cImg]?.v ? String(row.c[cImg].v).trim() : '';
+            (item as any)._rawImg2 = cImgOp2 >= 0 && row.c[cImgOp2]?.v ? String(row.c[cImgOp2].v).trim() : '';
+          } else {
+            if (cImg >= 0 && row.c[cImg]?.v) {
+              item.imagen = String(row.c[cImg].v).trim();
+            }
+          }
+          
+          let targetCat = parsedMenu.find(c => c.categoria === catName);
+          if (!targetCat) {
+             targetCat = { categoria: catName, items: [] };
+             parsedMenu.push(targetCat);
+          }
+          targetCat.items.push(item);
+        }
+
+        // Merge to preserve option-specific images and map to new option text
+        for (const cat of parsedMenu) {
+           const localCat = data.menu.find(c => c.categoria === cat.categoria);
+           for (const item of cat.items) {
+               const localItem = localCat?.items.find(i => i.nombre === item.nombre);
+               
+               if (item.opciones && item.opciones.length > 0) {
+                   const op1 = item.opciones[0];
+                   const op2 = item.opciones[1];
+                   
+                   let finalImg1 = (item as any)._rawImg1;
+                   let finalImg2 = (item as any)._rawImg2;
+
+                   if (localItem) {
+                       const localOp1 = localItem.opciones?.[0];
+                       const localOp2 = localItem.opciones?.[1];
+                       if (!finalImg1) finalImg1 = (localOp1 && localItem.imagenes?.[localOp1]) || localItem.imagen || `/platos/${item.nombre}.webp`;
+                       if (!finalImg2) finalImg2 = (localOp2 && localItem.imagenes?.[localOp2]) || finalImg1;
+                   } else {
+                       if (!finalImg1) finalImg1 = `/platos/${item.nombre}.webp`;
+                       if (!finalImg2) finalImg2 = finalImg1;
+                   }
+
+                   item.imagenes = {};
+                   if (op1) item.imagenes[op1] = finalImg1;
+                   if (op2) item.imagenes[op2] = finalImg2;
+                   
+                   item.imagen = finalImg1;
+                   delete (item as any)._rawImg1;
+                   delete (item as any)._rawImg2;
+               } else {
+                   if (!item.imagen) {
+                       item.imagen = localItem?.imagen || `/platos/${item.nombre}.webp`;
+                   }
+               }
+           }
+        }
+
+        const finalMenu = parsedMenu.filter(c => c.items.length > 0);
+        if (finalMenu.length > 0) {
+           setMenu(finalMenu);
+           setActiveCategory(finalMenu[0].categoria);
+        }
+      } catch (err) {
+        console.error('Error fetching sheets', err);
+        setMenu(data.menu);
+        setActiveCategory(data.menu[0].categoria);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchSheets();
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = data.menu.map(c => document.getElementById(c.categoria));
+      const sections = menu.map(c => document.getElementById(c.categoria));
       
       let currentActive = activeCategory;
       for (const section of sections) {
@@ -228,6 +357,25 @@ function App() {
     window.open(url, '_blank');
   };
 
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen bg-[#f8f9fa] w-full">
+        <div className="w-full max-w-[500px] min-h-screen bg-white relative flex flex-col items-center justify-center p-8 text-center shadow-[0_0_40px_rgba(0,0,0,0.1)]">
+          <img src="/banner.webp" alt="El Chato" className="w-full max-w-[250px] mb-8 rounded-[2rem] border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]" />
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
+            className="mb-6"
+          >
+            <Anchor size={48} className="text-secondary drop-shadow-md" strokeWidth={2.5} />
+          </motion.div>
+          <h2 className="font-title text-3xl text-primary mb-3 animate-pulse">Cargando la carta...</h2>
+          <p className="font-ui text-gray-500 font-medium text-lg">Preparando lo mejor del mar 🌊</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex justify-center min-h-screen bg-transparent w-full">
       <div className="w-full max-w-[500px] min-h-screen bg-white/40 shadow-[0_0_40px_rgba(0,0,0,0.1)] relative flex flex-col backdrop-blur-sm">
@@ -263,8 +411,10 @@ function App() {
         {/* Banner */}
         <div className="px-4 mt-4">
           <img 
-            src="/banner.png" 
+            src="/banner.webp" 
             alt="Banner El Chato" 
+            loading="eager"
+            decoding="async"
             className="w-full rounded-[2rem] border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]" 
           />
         </div>
@@ -272,7 +422,7 @@ function App() {
         {/* Category Nav */}
         <nav className="sticky top-[72px] z-40 glass py-3 mt-4 mx-2 rounded-2xl">
           <div className="flex overflow-x-auto hide-scrollbar px-2 gap-2">
-            {data.menu.map(cat => (
+            {menu.map(cat => (
               <button
                 key={cat.categoria}
                 id={`nav-${cat.categoria}`}
@@ -295,7 +445,7 @@ function App() {
 
         {/* Content */}
         <main className="flex-1 p-4 pb-32">
-          {data.menu.map(cat => (
+          {menu.map(cat => (
             <div key={cat.categoria} id={cat.categoria} className="mb-8 pt-4">
               <div className="flex items-center gap-2 mb-6">
                 <motion.div
