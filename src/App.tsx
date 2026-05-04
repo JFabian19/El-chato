@@ -177,6 +177,7 @@ function App() {
   const [cart, setCart] = useState<CartItem[]>([])
   const [isCartOpen, setIsCartOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const [bannerUrl, setBannerUrl] = useState('/banner.webp')
 
   useEffect(() => {
     const fetchSheets = async () => {
@@ -289,6 +290,36 @@ function App() {
            setMenu(finalMenu);
            setActiveCategory(finalMenu[0].categoria);
         }
+
+        // Fetch custom banner
+        try {
+          const bannerRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=Banner`);
+          const bannerText = await bannerRes.text();
+          const bannerJson = JSON.parse(bannerText.substring(47).slice(0, -2));
+          
+          let foundUrl = '';
+          for (const col of bannerJson.table.cols) {
+            if (col.label && col.label.startsWith('http')) {
+               foundUrl = col.label;
+               break;
+            }
+          }
+          if (!foundUrl) {
+            for (const row of bannerJson.table.rows) {
+              for (const cell of row.c) {
+                if (cell?.v && typeof cell.v === 'string' && cell.v.trim().startsWith('http')) {
+                  foundUrl = cell.v.trim();
+                  break;
+                }
+              }
+              if (foundUrl) break;
+            }
+          }
+          if (foundUrl) setBannerUrl(foundUrl);
+        } catch (e) {
+          console.log("No custom banner found", e);
+        }
+
       } catch (err) {
         console.error('Error fetching sheets', err);
         setMenu(data.menu);
@@ -383,7 +414,7 @@ function App() {
     return (
       <div className="flex justify-center items-center min-h-screen bg-[#f8f9fa] w-full">
         <div className="w-full max-w-[500px] min-h-screen bg-white relative flex flex-col items-center justify-center p-8 text-center shadow-[0_0_40px_rgba(0,0,0,0.1)]">
-          <img src="/banner.webp" alt="El Chato" className="w-full max-w-[250px] mb-8 rounded-[2rem] border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]" />
+          <img src={bannerUrl} alt="El Chato" className="w-full max-w-[250px] mb-8 rounded-[2rem] border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] object-cover" />
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
@@ -433,7 +464,7 @@ function App() {
         {/* Banner */}
         <div className="px-4 mt-4">
           <img 
-            src="/banner.webp" 
+            src={bannerUrl} 
             alt="Banner El Chato" 
             loading="eager"
             decoding="async"
