@@ -42,27 +42,36 @@ const ProductCard = ({
 
   const currentPrice = item.precio;
   const currentImage = item.imagenes?.[selectedOption] || item.imagen;
+  const isOutOfStock = item.stock === false;
 
   return (
     <motion.div
-      whileHover={{ y: -4 }}
-      className="bg-white/80 rounded-[1.5rem] p-3 sm:p-4 shadow-sm border-[3px] border-black relative transition-shadow hover:shadow-lg backdrop-blur-md flex flex-col h-full"
+      whileHover={isOutOfStock ? {} : { y: -4 }}
+      className={clsx(
+        "rounded-[1.5rem] p-3 sm:p-4 shadow-sm border-[3px] border-black relative transition-shadow backdrop-blur-md flex flex-col h-full",
+        isOutOfStock ? "bg-gray-200 grayscale-[0.8] opacity-80 cursor-not-allowed" : "bg-white/80 hover:shadow-lg"
+      )}
     >
-      <div className="absolute top-[-12px] right-[-10px] z-10">
+      <div className="absolute top-[-12px] right-[-10px] z-10 flex flex-col items-end gap-1">
         <motion.div 
-          animate={{ scale: [1, 1.05, 1] }} 
+          animate={isOutOfStock ? {} : { scale: [1, 1.05, 1] }} 
           transition={{ repeat: Infinity, duration: 2 }}
           className="comic-badge bg-[#FFD700] text-black text-sm sm:text-lg font-bold px-2 py-1 sm:px-3 sm:py-1 border-2 sm:border-[3px]"
         >
           S/ {currentPrice?.toFixed(2)}
         </motion.div>
+        {isOutOfStock && (
+           <div className="comic-badge bg-red-500 text-white text-xs sm:text-sm font-bold px-2 py-0.5 border-2 border-black uppercase">
+             Agotado
+           </div>
+        )}
       </div>
 
       <div className="w-full aspect-square bg-gray-200 rounded-xl mb-3 flex items-center justify-center overflow-hidden border-2 border-black/10 shrink-0 relative">
         <AnimatePresence mode="wait">
           {currentImage ? (
             <motion.img
-              key={currentImage}
+              key={currentImage + selectedOption}
               src={currentImage}
               alt={item.nombre}
               loading="lazy"
@@ -148,8 +157,12 @@ const ProductCard = ({
 
       <div className="flex justify-end mt-2 shrink-0">
         <button
+          disabled={isOutOfStock}
           onClick={() => onAdd(item, hasOptions ? selectedOption : undefined, currentPrice)}
-          className="bg-primary hover:bg-primary/90 text-white rounded-full h-10 w-10 sm:h-12 sm:w-12 flex items-center justify-center border-2 sm:border-[3px] border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-transform active:translate-y-1 active:translate-x-1"
+          className={clsx(
+            "rounded-full h-10 w-10 sm:h-12 sm:w-12 flex items-center justify-center border-2 sm:border-[3px] border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-transform",
+            isOutOfStock ? "bg-gray-400 cursor-not-allowed" : "bg-primary hover:bg-primary/90 text-white active:translate-y-1 active:translate-x-1"
+          )}
         >
           <Plus size={20} className="text-white" strokeWidth={3} />
         </button>
@@ -188,6 +201,7 @@ function App() {
         const cOp2 = cols.indexOf('opcion2');
         const cImg = cols.indexOf('imagen url');
         const cImgOp2 = cols.indexOf('imagen url opcion 2');
+        const cStock = cols.indexOf('stock');
 
         const parsedMenu: MenuCategory[] = categoriesOrder.map((cat: string) => ({ categoria: cat, items: [] }));
 
@@ -214,6 +228,14 @@ function App() {
             if (cImg >= 0 && row.c[cImg]?.v) {
               item.imagen = String(row.c[cImg].v).trim();
             }
+          }
+
+          item.stock = true;
+          if (cStock >= 0 && row.c[cStock]?.v !== null && row.c[cStock]?.v !== undefined) {
+             const stockVal = String(row.c[cStock].v).toLowerCase().trim();
+             if (stockVal === 'false' || stockVal === 'falso' || stockVal === 'no') {
+               item.stock = false;
+             }
           }
           
           let targetCat = parsedMenu.find(c => c.categoria === catName);

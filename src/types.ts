@@ -5,6 +5,7 @@ export interface MenuItem {
   opciones?: string[];
   imagen?: string;
   imagenes?: Record<string, string>;
+  stock?: boolean;
 }
 
 export interface MenuCategory {
